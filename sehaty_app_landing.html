@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صحتي - ملفك الطبي في مكان واحد آمن</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #16a085 0%, #2980b9 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="white" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(0.5deg); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            color: white;
+        }
+        
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            animation: slideInRight 1s ease-out;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            animation: slideInRight 1s ease-out 0.2s both;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+        
+        .hero-description {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            animation: slideInRight 1s ease-out 0.4s both;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+        
+        /* Logo in hero */
+        .hero-logo {
+            animation: slideInLeft 1s ease-out;
+            text-align: center;
+        }
+        
+        .hero-logo svg {
+            max-width: 400px;
+            width: 100%;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(22, 160, 133, 0.2);
+            border-color: #16a085;
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        
+        .feature-card p {
+            color: #7f8c8d;
+            line-height: 1.7;
+        }
+        
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, #2980b9 0%, #16a085 100%);
+            padding: 6rem 0;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white" opacity="0.1"/><circle cx="80" cy="40" r="1.5" fill="white" opacity="0.1"/><circle cx="40" cy="80" r="1" fill="white" opacity="0.1"/><circle cx="90" cy="90" r="2.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="1.8" fill="white" opacity="0.1"/></svg>');
+            animation: sparkle 15s linear infinite;
+        }
+        
+        @keyframes sparkle {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+        }
+        
+        /* Form Styles */
+        .signup-form {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 500px;
+            margin: 0 auto;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: right;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: white;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            transition: all 0.3s ease;
+            text-align: right;
+        }
+        
+        .form-group input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #fff;
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 0 20px rgba(255,255,255,0.3);
+        }
+        
+        .form-group select option {
+            background: #2980b9;
+            color: white;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem 2rem;
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(46, 204, 113, 0.4);
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Success Message */
+        .success-message {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+            animation: slideInUp 0.5s ease-out;
+        }
+        
+        /* Analytics Counter */
+        .analytics {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            z-index: 1000;
+        }
+        
+        /* Download Button */
+        .download-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .download-btn:hover {
+            background: #2ecc71;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(39, 174, 96, 0.4);
+        }
+        
+        /* Animations */
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .hero-logo svg {
+                max-width: 250px;
+            }
+            
+            .signup-form {
+                padding: 2rem 1.5rem;
+            }
+            
+            .cta h2 {
+                font-size: 2rem;
+            }
+            
+            .analytics {
+                display: none;
+            }
+            
+            .download-btn {
+                top: 10px;
+                right: 10px;
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Download Button -->
+    <button class="download-btn" onclick="downloadHTML()">📥 حمل الملف</button>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>صحتي</h1>
+                    <p class="hero-subtitle">ملفك الطبي في مكان واحد آمن</p>
+                    <p class="hero-description">
+                        احتفظ بجميع معلوماتك الطبية بشكل آمن مع مساعدة الذكاء الاصطناعي. 
+                        شاركها مع أطبائك بسهولة، واحصل على تنبيهات مواعيد أدويتك، 
+                        واكتشف مقدمي الخدمات الطبية حولك.
+                    </p>
+                </div>
+                <div class="hero-logo">
+                    <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Background -->
+                        <rect width="400" height="300" fill="transparent"/>
+                        
+                        <!-- Main Folder Shape -->
+                        <path d="M60 80 L60 70 Q60 60 70 60 L140 60 L160 80 L330 80 Q340 80 340 90 L340 220 Q340 230 330 230 L70 230 Q60 230 60 220 Z" 
+                              fill="#2c3e50" stroke="#16a085" stroke-width="4"/>
+                        
+                        <!-- Inner White Area -->
+                        <rect x="80" y="100" width="240" height="110" rx="10" fill="white"/>
+                        
+                        <!-- Medical Cross with Network Connections -->
+                        <g transform="translate(200, 155)">
+                            <!-- Main Cross -->
+                            <rect x="-25" y="-8" width="50" height="16" rx="8" fill="#16a085"/>
+                            <rect x="-8" y="-25" width="16" height="50" rx="8" fill="#16a085"/>
+                            
+                            <!-- Connection Points -->
+                            <circle cx="-35" cy="0" r="6" fill="#16a085"/>
+                            <circle cx="35" cy="0" r="6" fill="#16a085"/>
+                            <circle cx="0" cy="-35" r="6" fill="#16a085"/>
+                            <circle cx="0" cy="35" r="6" fill="#16a085"/>
+                            
+                            <!-- Network Lines -->
+                            <line x1="-29" y1="0" x2="-25" y2="0" stroke="#16a085" stroke-width="3"/>
+                            <line x1="25" y1="0" x2="29" y2="0" stroke="#16a085" stroke-width="3"/>
+                            <line x1="0" y1="-29" x2="0" y2="-25" stroke="#16a085" stroke-width="3"/>
+                            <line x1="0" y1="25" x2="0" y2="29" stroke="#16a085" stroke-width="3"/>
+                        </g>
+                        
+                        <!-- Arabic Text "صحتي" -->
+                        <text x="380" y="280" font-family="Cairo, Arial" font-size="48" font-weight="bold" 
+                              fill="#16a085" text-anchor="end" dominant-baseline="middle">صحتي</text>
+                        
+                        <!-- Decorative Elements -->
+                        <circle cx="100" cy="50" r="3" fill="#16a085" opacity="0.6">
+                            <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="300" cy="40" r="2" fill="#2980b9" opacity="0.5">
+                            <animate attributeName="opacity" values="0.5;0.9;0.5" dur="3s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="350" cy="60" r="2.5" fill="#16a085" opacity="0.7">
+                            <animate attributeName="opacity" values="0.7;1;0.7" dur="2.5s" repeatCount="indefinite"/>
+                        </circle>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">لماذا صحتي؟</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🔒</span>
+                    <h3>أمان كامل</h3>
+                    <p>بياناتك الطبية محفوظة بأعلى معايير الأمان والخصوصية مع تشفير متقدم</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🤖</span>
+                    <h3>ذكاء اصطناعي</h3>
+                    <p>مساعد ذكي يساعدك في تنظيم ملفاتك الطبية وتذكيرك بالمواعيد المهمة</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">👨‍⚕️</span>
+                    <h3>مشاركة سهلة</h3>
+                    <p>شارك ملفك الطبي مع أطبائك بضغطة واحدة وقت ما تحتاج</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">💊</span>
+                    <h3>تذكير الأدوية</h3>
+                    <p>لن تنسى موعد دوائك مرة أخرى مع التنبيهات الذكية</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🏥</span>
+                    <h3>دليل الخدمات</h3>
+                    <p>اكتشف أقرب المستشفيات والعيادات والصيدليات في منطقتك</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">📱</span>
+                    <h3>سهولة الاستخدام</h3>
+                    <p>تطبيق بسيط وسهل الاستخدام لجميع أفراد العائلة</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>كن من أول المستخدمين</h2>
+                <p>سجل اهتمامك الآن واحصل على إشعار عند إطلاق التطبيق مع خصم خاص للمستخدمين الأوائل</p>
+                
+                <form class="signup-form" id="signupForm">
+                    <div class="form-group">
+                        <label for="contactMethod">طريقة التواصل المفضلة:</label>
+                        <select id="contactMethod" name="contactMethod" required>
+                            <option value="">اختر طريقة التواصل</option>
+                            <option value="البريد الإلكتروني">البريد الإلكتروني</option>
+                            <option value="الواتساب">واتساب</option>
+                            <option value="كلاهما">كلاهما</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="emailGroup" style="display: none;">
+                        <label for="email">البريد الإلكتروني:</label>
+                        <input type="email" id="email" name="email" placeholder="example@email.com">
+                    </div>
+                    
+                    <div class="form-group" id="whatsappGroup" style="display: none;">
+                        <label for="whatsapp">رقم الواتساب:</label>
+                        <input type="tel" id="whatsapp" name="whatsapp" placeholder="01xxxxxxxxx">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="age">العمر:</label>
+                        <select id="age" name="age" required>
+                            <option value="">اختر الفئة العمرية</option>
+                            <option value="18-25">18-25 سنة</option>
+                            <option value="26-35">26-35 سنة</option>
+                            <option value="36-45">36-45 سنة</option>
+                            <option value="46-55">46-55 سنة</option>
+                            <option value="56+">56+ سنة</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interest">مدى اهتمامك بالتطبيق:</label>
+                        <select id="interest" name="interest" required>
+                            <option value="">اختر مستوى الاهتمام</option>
+                            <option value="مهتم جداً - سأستخدمه فوراً">مهتم جداً - سأستخدمه فوراً</option>
+                            <option value="مهتم - سأجربه">مهتم - سأجربه</option>
+                            <option value="مهتم نسبياً - ربما">مهتم نسبياً - ربما</option>
+                            <option value="مهتم قليلاً - أريد معرفة المزيد">مهتم قليلاً - أريد معرفة المزيد</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">سجل اهتمامك الآن</button>
+                    
+                    <div class="success-message" id="successMessage">
+                        <strong>شكراً لك!</strong> تم تسجيل اهتمامك بنجاح. سنتواصل معك قريباً.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analytics Display -->
+    <div class="analytics" id="analytics">
+        الزوار: <span id="visitors">1</span> | المهتمين: <span id="interested">0</span>
+    </div>
+
+    <script>
+        // Form handling and analytics (using memory instead of localStorage)
+        let analytics = {
+            visitors: 1,
+            interested: 0,
+            formData: []
+        };
+        
+        // Update visitor count on page load
+        function updateAnalytics() {
+            analytics.visitors++;
+            document.getElementById('visitors').textContent = analytics.visitors;
+            document.getElementById('interested').textContent = analytics.interested;
+        }
+        
+        // Initialize analytics
+        updateAnalytics();
+        
+        // Form interaction tracking
+        const form = document.getElementById('signupForm');
+        const contactMethod = document.getElementById('contactMethod');
+        const emailGroup = document.getElementById('emailGroup');
+        const whatsappGroup = document.getElementById('whatsappGroup');
+        const emailInput = document.getElementById('email');
+        const whatsappInput = document.getElementById('whatsapp');
+        
+        // Track form start time
+        let formStartTime = Date.now();
+        let formInteractions = 0;
+        
+        // Show/hide contact fields based on selection
+        contactMethod.addEventListener('change', function() {
+            formInteractions++;
+            const value = this.value;
+            
+            if (value === 'البريد الإلكتروني' || value === 'كلاهما') {
+                emailGroup.style.display = 'block';
+                emailInput.required = true;
+            } else {
+                emailGroup.style.display = 'none';
+                emailInput.required = false;
+                emailInput.value = '';
+            }
+            
+            if (value === 'الواتساب' || value === 'كلاهما') {
+                whatsappGroup.style.display = 'block';
+                whatsappInput.required = true;
+            } else {
+                whatsappGroup.style.display = 'none';
+                whatsappInput.required = false;
+                whatsappInput.value = '';
+            }
+        });
+        
+        // Track all form interactions
+        form.addEventListener('input', function() {
+            formInteractions++;
+        });
+        
+        form.addEventListener('change', function() {
+            formInteractions++;
+        });
+        
+        // Handle form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Add analytics data
+            data.timeSpent = Math.round((Date.now() - formStartTime) / 1000);
+            data.interactions = formInteractions;
+            data.timestamp = new Date().toISOString();
+            
+            // Show loading state
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'جاري الإرسال...';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission delay
+            setTimeout(() => {
+                // Store data in memory
+                analytics.formData.push(data);
+                analytics.interested++;
+                
+                // Update interested count
+                document.getElementById('interested').textContent = analytics.interested;
+                
+                // Show success message
+                document.getElementById('successMessage').innerHTML = `
+                    <strong>شكراً لك!</strong><br>
+                    تم تسجيل اهتمامك بنجاح.<br>
+                    <small>البيانات: ${data.contactMethod} | ${data.age} | ${data.interest}</small>
+                `;
+                document.getElementById('successMessage').style.display = 'block';
+                form.style.display = 'none';
+                
+                console.log('✅ Data stored successfully:', data);
+                console.log('📊 All form submissions:', analytics.formData);
+            }, 1500);
+        });
+        
+        // Download HTML function
+        function downloadHTML() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'sehaty-app-landing.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+        
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add scroll effect to feature cards
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'slideInUp 0.6s ease-out forwards';
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.feature-card').forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
