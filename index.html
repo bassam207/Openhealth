@@ -649,47 +649,30 @@
         });
         
         // Handle form submission
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
-            
-            // Add analytics data
-            data.timeSpent = Math.round((Date.now() - formStartTime) / 1000);
-            data.interactions = formInteractions;
-            data.timestamp = new Date().toISOString();
-            
-            // Show loading state
-            const submitBtn = document.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'جاري الإرسال...';
-            submitBtn.disabled = true;
-            
-            // Simulate form submission delay
-            setTimeout(() => {
-                // Store data in memory
-                analytics.formData.push(data);
-                analytics.interested++;
-                
-                // Update interested count
-                document.getElementById('interested').textContent = analytics.interested;
-                
-                // Show success message
-                document.getElementById('successMessage').innerHTML = `
-                    <strong>شكراً لك!</strong><br>
-                    تم تسجيل اهتمامك بنجاح.<br>
-                    <small>البيانات: ${data.contactMethod} | ${data.age} | ${data.interest}</small>
-                `;
-                document.getElementById('successMessage').style.display = 'block';
-                form.style.display = 'none';
-                
-                console.log('✅ Data stored successfully:', data);
-                console.log('📊 All form submissions:', analytics.formData);
-            }, 1500);
-        });
         
-        // Download HTML function
+// Handle form submission to Google Forms
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData();
+    formData.append('entry.1941625889', contactMethod.value);
+    formData.append('entry.251454001', emailInput.value);
+    formData.append('entry.1845010809', whatsappInput.value);
+    formData.append('entry.1954054834', document.getElementById('age').value);
+    formData.append('entry.516146693', document.getElementById('interest').value);
+
+    fetch('https://docs.google.com/forms/d/e/1FAIpQLSe1xRj5nnMrC52MhDHNIUwJD62BfV6PETJ9FqoS_Za5tguvBA/formResponse', {
+        method: 'POST',
+        mode: 'no-cors',
+        body: formData
+    }).then(() => {
+        document.getElementById('successMessage').style.display = 'block';
+        form.style.display = 'none';
+    }).catch(err => {
+        console.error('Error submitting to Google Form:', err);
+    });
+});
+// Download HTML function
         function downloadHTML() {
             const htmlContent = document.documentElement.outerHTML;
             const blob = new Blob([htmlContent], { type: 'text/html' });
