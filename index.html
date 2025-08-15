@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صحتي - ملفك الطبي في مكان واحد آمن</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap' );
         
         * {
             margin: 0;
@@ -41,7 +41,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="white" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="white" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid )"/></svg>');
             animation: float 20s ease-in-out infinite;
         }
         
@@ -172,7 +172,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white" opacity="0.1"/><circle cx="80" cy="40" r="1.5" fill="white" opacity="0.1"/><circle cx="40" cy="80" r="1" fill="white" opacity="0.1"/><circle cx="90" cy="90" r="2.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="1.8" fill="white" opacity="0.1"/></svg>');
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white" opacity="0.1"/><circle cx="80" cy="40" r="1.5" fill="white" opacity="0.1"/><circle cx="40" cy="80" r="1" fill="white" opacity="0.1"/><circle cx="90" cy="90" r="2.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="1.8" fill="white" opacity="0.1"/></svg>' );
             animation: sparkle 15s linear infinite;
         }
         
@@ -308,30 +308,6 @@
             z-index: 1000;
         }
         
-        /* Download Button */
-        .download-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #27ae60;
-            color: white;
-            border: none;
-            padding: 12px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            z-index: 1000;
-            font-size: 14px;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .download-btn:hover {
-            background: #2ecc71;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(39, 174, 96, 0.4);
-        }
-        
         /* Animations */
         @keyframes slideInRight {
             from {
@@ -397,20 +373,10 @@
             .analytics {
                 display: none;
             }
-            
-            .download-btn {
-                top: 10px;
-                right: 10px;
-                padding: 8px 12px;
-                font-size: 12px;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Download Button -->
-    <button class="download-btn" onclick="downloadHTML()">📥 حمل الملف</button>
-
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
@@ -437,7 +403,7 @@
                         <rect x="80" y="100" width="240" height="110" rx="10" fill="white"/>
                         
                         <!-- Medical Cross with Network Connections -->
-                        <g transform="translate(200, 155)">
+                        <g transform="translate(200, 155 )">
                             <!-- Main Cross -->
                             <rect x="-25" y="-8" width="50" height="16" rx="8" fill="#16a085"/>
                             <rect x="-8" y="-25" width="16" height="50" rx="8" fill="#16a085"/>
@@ -610,14 +576,10 @@
         const whatsappGroup = document.getElementById('whatsappGroup');
         const emailInput = document.getElementById('email');
         const whatsappInput = document.getElementById('whatsapp');
-        
-        // Track form start time
-        let formStartTime = Date.now();
-        let formInteractions = 0;
+        const successMessage = document.getElementById('successMessage');
         
         // Show/hide contact fields based on selection
         contactMethod.addEventListener('change', function() {
-            formInteractions++;
             const value = this.value;
             
             if (value === 'البريد الإلكتروني' || value === 'كلاهما') {
@@ -639,52 +601,27 @@
             }
         });
         
-        // Track all form interactions
-        form.addEventListener('input', function() {
-            formInteractions++;
-        });
-        
-        form.addEventListener('change', function() {
-            formInteractions++;
-        });
-        
-        // Handle form submission
-        
-// Handle form submission to Google Forms
-form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const formData = new FormData();
-    formData.append('entry.1941625889', contactMethod.value);
-    formData.append('entry.251454001', emailInput.value);
-    formData.append('entry.1845010809', whatsappInput.value);
-    formData.append('entry.1954054834', document.getElementById('age').value);
-    formData.append('entry.516146693', document.getElementById('interest').value);
+        // Handle form submission to Google Forms
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
 
-    fetch('https://docs.google.com/forms/d/e/1FAIpQLSe1xRj5nnMrC52MhDHNIUwJD62BfV6PETJ9FqoS_Za5tguvBA/formResponse', {
-        method: 'POST',
-        mode: 'no-cors',
-        body: formData
-    }).then(() => {
-        document.getElementById('successMessage').style.display = 'block';
-        form.style.display = 'none';
-    }).catch(err => {
-        console.error('Error submitting to Google Form:', err);
-    });
-});
-// Download HTML function
-        function downloadHTML() {
-            const htmlContent = document.documentElement.outerHTML;
-            const blob = new Blob([htmlContent], { type: 'text/html' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'sehaty-app-landing.html';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
-        }
+            fetch('https://docs.google.com/forms/d/e/1FAIpQLSe1xRj5nnMrC52MhDHNIUwJD62BfV6PETJ9FqoS_Za5tguvBA/formResponse', {
+                method: 'POST',
+                mode: 'no-cors',
+                body: formData
+            } ).catch(err => console.error('Error submitting to Google Form:', err));
+
+            // Hide the form and show the success message immediately
+            // This is the expected behavior with 'no-cors' mode
+            successMessage.style.display = 'block';
+            form.style.display = 'none';
+
+            // Update interested counter
+            analytics.interested++;
+            document.getElementById('interested').textContent = analytics.interested;
+        });
         
         // Add some interactive effects
         document.addEventListener('DOMContentLoaded', function() {
@@ -695,7 +632,7 @@ form.addEventListener('submit', function(e) {
                         entry.target.style.animation = 'slideInUp 0.6s ease-out forwards';
                     }
                 });
-            });
+            }, { threshold: 0.1 });
             
             document.querySelectorAll('.feature-card').forEach(card => {
                 observer.observe(card);
@@ -704,3 +641,5 @@ form.addEventListener('submit', function(e) {
     </script>
 </body>
 </html>
+
+
