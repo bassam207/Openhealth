@@ -641,26 +641,32 @@
             formData.append('entry.164440756', problems.join(', '));       // المشاكل
             formData.append('entry.1279826396', document.getElementById('usage-frequency').value || '');  // تكرار زيارة الطبيب
             formData.append('entry.1459981290', document.getElementById('payment-willingness').value || ''); // الاستعداد للدفع
-            formData.append('entry.38304842', document.getElementById('suggestions').value || '');         // اقتراحات (missing from your list but keeping it)
             formData.append('entry.292269489', document.getElementById('notify-launch').checked ? 'نعم' : 'لا'); // إشعار الإطلاق
             
-            // Submit to Google Forms using XMLHttpRequest for better compatibility
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://docs.google.com/forms/d/e/1FAIpQLSeQEivxr7FwRrMC-OTLI-CFlCFsPIHgAeV7-W3KMa2BlR9Lhw/formResponse', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            // Add suggestions if you have the correct entry ID for it
+            const suggestions = document.getElementById('suggestions').value;
+            if (suggestions) {
+                formData.append('entry.38304842', suggestions); // Update this entry ID if needed
+            }
             
-            xhr.onload = function() {
-                // Google Forms always returns success for no-cors requests
+            // Submit to Google Forms using fetch with no-cors mode
+            fetch('https://docs.google.com/forms/d/e/1FAIpQLSeQEivxr7FwRrMC-OTLI-CFlCFsPIHgAeV7-W3KMa2BlR9Lhw/formResponse', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: formData.toString()
+            })
+            .then(() => {
+                console.log('Form submitted successfully');
                 showSuccessMessage();
-            };
-            
-            xhr.onerror = function() {
-                console.error('Error submitting form');
-                // Still show success message as Google Forms submission might have worked
+            })
+            .catch((error) => {
+                console.error('Error submitting form:', error);
+                // Show success message anyway since no-cors doesn't give us real error info
                 showSuccessMessage();
-            };
-            
-            xhr.send(formData.toString());
+            });
             
             function showSuccessMessage() {
                 // Show success message
@@ -714,4 +720,22 @@
             rootMargin: '0px 0px -100px 0px'
         };
 
-        const observer = new
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.problem-card, .solution-card, .survey-form').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(50px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
