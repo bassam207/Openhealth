@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>صحتي - ملفك الطبي الذكي في جيبك</title>
     <style>
         * {
@@ -495,12 +495,10 @@
                     <label for="email">البريد الإلكتروني *</label>
                     <input type="email" id="email" name="entry.1091782007" required>
                 </div>
-
                 <div class="form-group">
                     <label for="phone">رقم الواتساب *</label>
                     <input type="tel" id="phone" name="entry.161405480" placeholder="01xxxxxxxxx" required>
                 </div>
-
                 <div class="form-group">
                     <label for="age">العمر *</label>
                     <select id="age" name="entry.66074834" required>
@@ -512,12 +510,10 @@
                         <option value="56+">56+</option>
                     </select>
                 </div>
-
                 <div class="form-group">
                     <label for="city">المدينة *</label>
                     <input type="text" id="city" name="entry.792467391" required>
                 </div>
-
                 <div class="form-group">
                     <label>ما هي أكبر المشاكل التي تواجهها في إدارة صحتك؟ (يمكنك اختيار أكثر من إجابة)</label>
                     <div class="checkbox-group">
@@ -551,7 +547,6 @@
                         </label>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label for="usage-frequency">كم مرة تزور الطبيب شهرياً؟</label>
                     <select id="usage-frequency" name="entry.1279826396">
@@ -562,7 +557,6 @@
                         <option value="كثيراً (أكثر من 6 مرات)">كثيراً (أكثر من 6 مرات)</option>
                     </select>
                 </div>
-
                 <div class="form-group">
                     <label for="payment-willingness">كم ستكون مستعداً لدفع شهرياً مقابل هذا التطبيق؟</label>
                     <select id="payment-willingness" name="entry.1459981290">
@@ -574,21 +568,13 @@
                         <option value="أكثر من 100 جنيه">أكثر من 100 جنيه</option>
                     </select>
                 </div>
-
                 <div class="form-group">
                     <label for="suggestions">اقتراحات أو ميزات إضافية تود رؤيتها في التطبيق</label>
                     <textarea id="suggestions" name="entry.38304842" rows="3"></textarea>
                 </div>
-
-                <div class="form-group">
-                    <label class="checkbox-item">
-                        <input type="checkbox" id="notify-launch" name="entry.292269489" value="نعم" checked>
-                        <span>أريد أن أكون من أول المستخدمين عند إطلاق التطبيق</span>
-                    </label>
-                </div>
-
+               
                 <button type="submit" class="submit-btn">إرسال الاستبيان</button>
-                <div class="success-message" id="successMessage">
+                <div class="success-message" id="successMessage" style="display:none;">
                     <span class="success-icon">🎉</span>
                     <h3>شكراً لك على المشاركة!</h3>
                     <p>تم إرسال استجابتك بنجاح. سنتواصل معك قريباً عندما يصبح التطبيق جاهزاً للاستخدام!</p>
@@ -608,7 +594,6 @@
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
     <script>
-        // Validation before submit
         function validateForm() {
             const form = document.getElementById('surveyForm');
             const email = form.querySelector('#email').value.trim();
@@ -618,22 +603,21 @@
 
             if (!email || !phone || !age || !city) {
                 alert('يرجى ملء جميع الحقول المطلوبة');
-                return false; // prevent submission
+                return false; // منع الإرسال
             }
 
-            // Show success message with delay to allow form submission
             const successMsg = document.getElementById('successMessage');
             successMsg.style.display = 'block';
 
-            // Reset form after 10 seconds
             setTimeout(() => {
                 form.reset();
                 form.querySelector('#notify-launch').checked = true;
                 successMsg.style.display = 'none';
             }, 10000);
 
-            return true; // allow submission
+            return true; // السماح بالإرسال
         }
     </script>
 </body>
 </html>
+
