@@ -610,6 +610,17 @@
         document.getElementById('surveyForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // Validate required fields
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const age = document.getElementById('age').value;
+            const city = document.getElementById('city').value;
+            
+            if (!email || !phone || !age || !city) {
+                alert('يرجى ملء جميع الحقول المطلوبة');
+                return;
+            }
+            
             // Show loading state
             const submitBtn = this.querySelector('.submit-btn');
             const originalText = submitBtn.textContent;
@@ -621,33 +632,35 @@
             const problemCheckboxes = document.querySelectorAll('input[name="problems"]:checked');
             problemCheckboxes.forEach(cb => problems.push(cb.value));
             
-            // Create FormData for Google Forms
-            const formData = new FormData();
-            formData.append('entry.1091782007', document.getElementById('email').value);
-            formData.append('entry.161405480', document.getElementById('phone').value);
-            formData.append('entry.66074834', document.getElementById('age').value);
-            formData.append('entry.792467391', document.getElementById('city').value);
+            // Create URL-encoded data for Google Forms
+            const formData = new URLSearchParams();
+            formData.append('entry.1091782007', email);
+            formData.append('entry.161405480', phone);
+            formData.append('entry.66074834', age);
+            formData.append('entry.792467391', city);
             formData.append('entry.164440756', problems.join(', '));
-            formData.append('entry.1279826396', document.getElementById('usage-frequency').value);
-            formData.append('entry.1459981290', document.getElementById('payment-willingness').value);
-            formData.append('entry.38304842', document.getElementById('suggestions').value);
-            formData.append('entry.292269489', document.getElementById('notify-launch').checked ? 'نعم' : '');
+            formData.append('entry.1279826396', document.getElementById('usage-frequency').value || '');
+            formData.append('entry.1459981290', document.getElementById('payment-willingness').value || '');
+            formData.append('entry.38304842', document.getElementById('suggestions').value || '');
+            formData.append('entry.292269489', document.getElementById('notify-launch').checked ? 'نعم' : 'لا');
             
-            // Submit to Google Forms
-            fetch('https://docs.google.com/forms/d/e/1FAIpQLSeQEivxr7FwRrMC-OTLI-CFlCFsPIHgAeV7-W3KMa2BlR9Lhw/formResponse', {
-                method: 'POST',
-                mode: 'no-cors',
-                body: formData
-            })
-            .then(() => {
-                // Show success message after a short delay
-                setTimeout(showSuccessMessage, 500);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                // Still show success message as no-cors mode doesn't return response
-                setTimeout(showSuccessMessage, 500);
-            });
+            // Submit to Google Forms using XMLHttpRequest for better compatibility
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'https://docs.google.com/forms/d/e/1FAIpQLSeQEivxr7FwRrMC-OTLI-CFlCFsPIHgAeV7-W3KMa2BlR9Lhw/formResponse', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            
+            xhr.onload = function() {
+                // Google Forms always returns success for no-cors requests
+                showSuccessMessage();
+            };
+            
+            xhr.onerror = function() {
+                console.error('Error submitting form');
+                // Still show success message as Google Forms submission might have worked
+                showSuccessMessage();
+            };
+            
+            xhr.send(formData.toString());
             
             function showSuccessMessage() {
                 // Show success message
@@ -663,12 +676,14 @@
                 submitBtn.disabled = false;
                 
                 // Scroll to success message
-                successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => {
+                    successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
                 
-                // Hide success message after 8 seconds
+                // Hide success message after 10 seconds
                 setTimeout(() => {
                     successMsg.style.display = 'none';
-                }, 8000);
+                }, 10000);
             }
         });
 
@@ -718,5 +733,3 @@
     </script>
 </body>
 </html>
-
-
