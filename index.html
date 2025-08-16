@@ -632,17 +632,17 @@
             const problemCheckboxes = document.querySelectorAll('input[name="problems"]:checked');
             problemCheckboxes.forEach(cb => problems.push(cb.value));
             
-            // Create URL-encoded data for Google Forms
+            // Create URL-encoded data for Google Forms with updated entry IDs
             const formData = new URLSearchParams();
-            formData.append('entry.1091782007', email);
-            formData.append('entry.161405480', phone);
-            formData.append('entry.66074834', age);
-            formData.append('entry.792467391', city);
-            formData.append('entry.164440756', problems.join(', '));
-            formData.append('entry.1279826396', document.getElementById('usage-frequency').value || '');
-            formData.append('entry.1459981290', document.getElementById('payment-willingness').value || '');
-            formData.append('entry.38304842', document.getElementById('suggestions').value || '');
-            formData.append('entry.292269489', document.getElementById('notify-launch').checked ? 'نعم' : 'لا');
+            formData.append('entry.1091782007', email);                    // البريد الإلكتروني
+            formData.append('entry.161405480', phone);                     // رقم الواتساب
+            formData.append('entry.66074834', age);                        // العمر
+            formData.append('entry.792467391', city);                      // المدينة
+            formData.append('entry.164440756', problems.join(', '));       // المشاكل
+            formData.append('entry.1279826396', document.getElementById('usage-frequency').value || '');  // تكرار زيارة الطبيب
+            formData.append('entry.1459981290', document.getElementById('payment-willingness').value || ''); // الاستعداد للدفع
+            formData.append('entry.38304842', document.getElementById('suggestions').value || '');         // اقتراحات (missing from your list but keeping it)
+            formData.append('entry.292269489', document.getElementById('notify-launch').checked ? 'نعم' : 'لا'); // إشعار الإطلاق
             
             // Submit to Google Forms using XMLHttpRequest for better compatibility
             const xhr = new XMLHttpRequest();
@@ -714,22 +714,4 @@
             rootMargin: '0px 0px -100px 0px'
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe all cards and sections
-        document.querySelectorAll('.problem-card, .solution-card, .survey-form').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(50px)';
-            el.style.transition = 'all 0.6s ease';
-            observer.observe(el);
-        });
-    </script>
-</body>
-</html>
+        const observer = new
