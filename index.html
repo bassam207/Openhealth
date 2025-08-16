@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>صحتي - ملفك الطبي الذكي في جيبك</title>
     <style>
         * {
@@ -404,7 +404,6 @@
             </div>
         </nav>
     </header>
-
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
@@ -414,7 +413,6 @@
             </div>
         </div>
     </section>
-
     <!-- Problems Section -->
     <section class="problems">
         <div class="container">
@@ -448,7 +446,6 @@
             </div>
         </div>
     </section>
-
     <!-- Solutions Section -->
     <section class="solutions">
         <div class="container">
@@ -482,22 +479,28 @@
             </div>
         </div>
     </section>
-
     <!-- Survey Section -->
     <section class="survey">
         <div class="container">
             <h2 class="section-title">ساعدنا في بناء التطبيق المناسب لك</h2>
-            <form class="survey-form" id="surveyForm">
+            <form
+                class="survey-form"
+                id="surveyForm"
+                action="https://docs.google.com/forms/d/e/1FAIpQLSeQEivxr7FwRrMC-OTLI-CFlCFsPIHgAeV7-W3KMa2BlR9Lhw/formResponse"
+                method="POST"
+                target="hidden_iframe"
+                onsubmit="return validateForm()"
+            >
                 <div class="form-group">
                     <label for="email">البريد الإلكتروني *</label>
                     <input type="email" id="email" name="entry.1091782007" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="phone">رقم الواتساب *</label>
                     <input type="tel" id="phone" name="entry.161405480" placeholder="01xxxxxxxxx" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="age">العمر *</label>
                     <select id="age" name="entry.66074834" required>
@@ -509,46 +512,46 @@
                         <option value="56+">56+</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="city">المدينة *</label>
                     <input type="text" id="city" name="entry.792467391" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label>ما هي أكبر المشاكل التي تواجهها في إدارة صحتك؟ (يمكنك اختيار أكثر من إجابة)</label>
                     <div class="checkbox-group">
                         <label class="checkbox-item">
-                            <input type="checkbox" name="problems" value="إدخال البيانات يدوياً من التقارير">
+                            <input type="checkbox" name="entry.164440756" value="إدخال البيانات يدوياً من التقارير">
                             <span>إدخال البيانات يدوياً من التقارير</span>
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox" name="problems" value="فقدان الملفات الطبية">
+                            <input type="checkbox" name="entry.164440756" value="فقدان الملفات الطبية">
                             <span>فقدان الملفات الطبية</span>
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox" name="problems" value="نسيان مواعيد الأدوية">
+                            <input type="checkbox" name="entry.164440756" value="نسيان مواعيد الأدوية">
                             <span>نسيان مواعيد الأدوية</span>
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox" name="problems" value="العثور على الأطباء">
+                            <input type="checkbox" name="entry.164440756" value="العثور على الأطباء">
                             <span>العثور على الأطباء</span>
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox" name="problems" value="تنظيم المواعيد">
+                            <input type="checkbox" name="entry.164440756" value="تنظيم المواعيد">
                             <span>تنظيم المواعيد</span>
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox" name="problems" value="مشاركة المعلومات مع الأطباء">
+                            <input type="checkbox" name="entry.164440756" value="مشاركة المعلومات مع الأطباء">
                             <span>مشاركة المعلومات مع الأطباء</span>
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox" name="problems" value="متابعة الحالة الصحية">
+                            <input type="checkbox" name="entry.164440756" value="متابعة الحالة الصحية">
                             <span>متابعة الحالة الصحية</span>
                         </label>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="usage-frequency">كم مرة تزور الطبيب شهرياً؟</label>
                     <select id="usage-frequency" name="entry.1279826396">
@@ -559,7 +562,7 @@
                         <option value="كثيراً (أكثر من 6 مرات)">كثيراً (أكثر من 6 مرات)</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="payment-willingness">كم ستكون مستعداً لدفع شهرياً مقابل هذا التطبيق؟</label>
                     <select id="payment-willingness" name="entry.1459981290">
@@ -571,19 +574,19 @@
                         <option value="أكثر من 100 جنيه">أكثر من 100 جنيه</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="suggestions">اقتراحات أو ميزات إضافية تود رؤيتها في التطبيق</label>
                     <textarea id="suggestions" name="entry.38304842" rows="3"></textarea>
                 </div>
-                
+
                 <div class="form-group">
                     <label class="checkbox-item">
                         <input type="checkbox" id="notify-launch" name="entry.292269489" value="نعم" checked>
                         <span>أريد أن أكون من أول المستخدمين عند إطلاق التطبيق</span>
                     </label>
                 </div>
-                
+
                 <button type="submit" class="submit-btn">إرسال الاستبيان</button>
                 <div class="success-message" id="successMessage">
                     <span class="success-icon">🎉</span>
@@ -593,7 +596,6 @@
             </form>
         </div>
     </section>
-
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -602,140 +604,36 @@
         </div>
     </footer>
 
-    <script>
-        // Store responses in memory
-        let surveyResponses = [];
+    <!-- Invisible iframe to avoid page reload on form submit -->
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
-        // Form submission with Google Forms integration
-        document.getElementById('surveyForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Validate required fields
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const age = document.getElementById('age').value;
-            const city = document.getElementById('city').value;
-            
+    <script>
+        // Validation before submit
+        function validateForm() {
+            const form = document.getElementById('surveyForm');
+            const email = form.querySelector('#email').value.trim();
+            const phone = form.querySelector('#phone').value.trim();
+            const age = form.querySelector('#age').value;
+            const city = form.querySelector('#city').value.trim();
+
             if (!email || !phone || !age || !city) {
                 alert('يرجى ملء جميع الحقول المطلوبة');
-                return;
+                return false; // prevent submission
             }
-            
-            // Show loading state
-            const submitBtn = this.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'جاري الإرسال...';
-            submitBtn.disabled = true;
-            
-            // Collect problems checkboxes
-            const problems = [];
-            const problemCheckboxes = document.querySelectorAll('input[name="problems"]:checked');
-            problemCheckboxes.forEach(cb => problems.push(cb.value));
-            
-            // Create URL-encoded data for Google Forms with updated entry IDs
-            const formData = new URLSearchParams();
-            formData.append('entry.1091782007', email);                    // البريد الإلكتروني
-            formData.append('entry.161405480', phone);                     // رقم الواتساب
-            formData.append('entry.66074834', age);                        // العمر
-            formData.append('entry.792467391', city);                      // المدينة
-            formData.append('entry.164440756', problems.join(', '));       // المشاكل
-            formData.append('entry.1279826396', document.getElementById('usage-frequency').value || '');  // تكرار زيارة الطبيب
-            formData.append('entry.1459981290', document.getElementById('payment-willingness').value || ''); // الاستعداد للدفع
-            formData.append('entry.292269489', document.getElementById('notify-launch').checked ? 'نعم' : 'لا'); // إشعار الإطلاق
-            
-            // Add suggestions if you have the correct entry ID for it
-            const suggestions = document.getElementById('suggestions').value;
-            if (suggestions) {
-                formData.append('entry.38304842', suggestions); // Update this entry ID if needed
-            }
-            
-            // Submit to Google Forms using fetch with no-cors mode
-            fetch('https://docs.google.com/forms/d/e/1FAIpQLSeQEivxr7FwRrMC-OTLI-CFlCFsPIHgAeV7-W3KMa2BlR9Lhw/formResponse', {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: formData.toString()
-            })
-            .then(() => {
-                console.log('Form submitted successfully');
-                showSuccessMessage();
-            })
-            .catch((error) => {
-                console.error('Error submitting form:', error);
-                // Show success message anyway since no-cors doesn't give us real error info
-                showSuccessMessage();
-            });
-            
-            function showSuccessMessage() {
-                // Show success message
-                const successMsg = document.getElementById('successMessage');
-                successMsg.style.display = 'block';
-                
-                // Reset form
-                document.getElementById('surveyForm').reset();
-                document.getElementById('notify-launch').checked = true; // Keep it checked by default
-                
-                // Restore button
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                
-                // Scroll to success message
-                setTimeout(() => {
-                    successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 100);
-                
-                // Hide success message after 10 seconds
-                setTimeout(() => {
-                    successMsg.style.display = 'none';
-                }, 10000);
-            }
-        });
 
-        // Smooth scrolling for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+            // Show success message with delay to allow form submission
+            const successMsg = document.getElementById('successMessage');
+            successMsg.style.display = 'block';
 
-        // Add some interactivity to cards
-        document.querySelectorAll('.problem-card, .solution-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
+            // Reset form after 10 seconds
+            setTimeout(() => {
+                form.reset();
+                form.querySelector('#notify-launch').checked = true;
+                successMsg.style.display = 'none';
+            }, 10000);
 
-        // Animate elements on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe all cards and sections
-        document.querySelectorAll('.problem-card, .solution-card, .survey-form').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(50px)';
-            el.style.transition = 'all 0.6s ease';
-            observer.observe(el);
-        });
+            return true; // allow submission
+        }
     </script>
 </body>
 </html>
