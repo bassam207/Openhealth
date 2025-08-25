@@ -617,6 +617,52 @@
             const errorMessage = document.getElementById("errorMessage");
             const errorText = document.getElementById("errorText");
             
+            // Mapping functions to convert Arabic values to enum values
+            const mapAgeGroup = (arabicAge) => {
+                const ageMap = {
+                    "18-25": "AGE_18_25",
+                    "26-35": "AGE_26_35", 
+                    "36-45": "AGE_36_45",
+                    "46-55": "AGE_46_55",
+                    "56+": "AGE_56_PLUS"
+                };
+                return ageMap[arabicAge] || null;
+            };
+
+            const mapPriceReadiness = (arabicPrice) => {
+                const priceMap = {
+                    "مجاني فقط": "FREE_ONLY",
+                    "1-20 جنيه": "EGP_1_20",
+                    "21-50 جنيه": "EGP_21_50", 
+                    "51-100 جنيه": "EGP_51_100",
+                    "أكثر من 100 جنيه": "EGP_100_PLUS"
+                };
+                return priceMap[arabicPrice] || null;
+            };
+
+            const mapVisitFrequency = (arabicFrequency) => {
+                const frequencyMap = {
+                    "نادراً (مرة أو أقل)": "RARE_0_1",
+                    "أحياناً (2-3 مرات)": "SOMETIMES_2_3",
+                    "غالباً (4-6 مرات)": "OFTEN_4_6",
+                    "كثيراً (أكثر من 6 مرات)": "MANY_6_PLUS"
+                };
+                return frequencyMap[arabicFrequency] || null;
+            };
+
+            const mapProblems = (arabicProblems) => {
+                const problemMap = {
+                    "إدخال البيانات يدوياً من التقارير": "MANUAL_DATA_ENTRY",
+                    "فقدان الملفات الطبية": "LOSE_FILES",
+                    "نسيان مواعيد الأدوية": "REMINDERS",
+                    "العثور على الأطباء": "FIND_DOCTORS",
+                    "تنظيم المواعيد": "APPOINTMENTS",
+                    "مشاركة المعلومات مع الأطباء": "SHARE_INFO",
+                    "متابعة الحالة الصحية": "FOLLOW_UP"
+                };
+                return arabicProblems.map(problem => problemMap[problem]).filter(Boolean);
+            };
+            
             form.addEventListener("submit", async function(event) {
                 event.preventDefault();
                 
@@ -640,17 +686,24 @@
                 successMessage.style.display = "none";
                 errorMessage.style.display = "none";
 
-                // Collect form data
+                // Collect and map form data
+                const rawProblems = Array.from(document.querySelectorAll('input[name="problems"]:checked')).map(el => el.value);
+                const rawVisitFrequency = document.getElementById("usage-frequency").value;
+                const rawPriceReadiness = document.getElementById("payment-willingness").value;
+
                 const formData = {
                     email: email,
                     whatsapp: phone,
-                    ageGroup: age,
+                    ageGroup: mapAgeGroup(age),
                     city: city,
-                    problems: Array.from(document.querySelectorAll('input[name="problems"]:checked')).map(el => el.value),
-                    visitFrequency: document.getElementById("usage-frequency").value,
-                    priceReadiness: document.getElementById("payment-willingness").value,
+                    problems: mapProblems(rawProblems),
+                    visitFrequency: rawVisitFrequency ? mapVisitFrequency(rawVisitFrequency) : null,
+                    priceReadiness: rawPriceReadiness ? mapPriceReadiness(rawPriceReadiness) : null,
                     suggestions: document.getElementById("suggestions").value
                 };
+
+                // Debug: log the mapped data
+                console.log("Mapped form data:", formData);
 
                 try {
                     const response = await fetch("http://localhost:8086/api/leads", {
