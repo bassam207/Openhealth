@@ -379,6 +379,25 @@
             font-size: 1.1rem;
             line-height: 1.6;
         }
+
+        /* Loading state */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* Error message */
+        .error-message {
+            background: linear-gradient(45deg, #dc3545, #e74c3c);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 1rem;
+            display: none;
+            animation: slideIn 0.8s ease;
+            box-shadow: 0 10px 30px rgba(220, 53, 69, 0.3);
+        }
         
         @keyframes slideIn {
             from { 
@@ -483,25 +502,18 @@
     <section class="survey">
         <div class="container">
             <h2 class="section-title">ساعدنا في بناء التطبيق المناسب لك</h2>
-            <form
-                class="survey-form"
-                id="surveyForm"
-                action="https://docs.google.com/forms/d/e/1FAIpQLSeQEivxr7FwRrMC-OTLI-CFlCFsPIHgAeV7-W3KMa2BlR9Lhw/formResponse"
-                method="POST"
-                target="hidden_iframe"
-                onsubmit="return validateForm()"
-            >
+            <form class="survey-form" id="surveyForm">
                 <div class="form-group">
                     <label for="email">البريد الإلكتروني *</label>
-                    <input type="email" id="email" name="entry.1091782007" required>
+                    <input type="email" id="email" name="email" required>
                 </div>
                 <div class="form-group">
                     <label for="phone">رقم الواتساب *</label>
-                    <input type="tel" id="phone" name="entry.161405480" placeholder="01xxxxxxxxx" required>
+                    <input type="tel" id="phone" name="whatsapp" placeholder="01xxxxxxxxx" required>
                 </div>
                 <div class="form-group">
                     <label for="age">العمر *</label>
-                    <select id="age" name="entry.66074834" required>
+                    <select id="age" name="ageGroup" required>
                         <option value="">اختر العمر</option>
                         <option value="18-25">18-25</option>
                         <option value="26-35">26-35</option>
@@ -512,44 +524,44 @@
                 </div>
                 <div class="form-group">
                     <label for="city">المدينة *</label>
-                    <input type="text" id="city" name="entry.792467391" required>
+                    <input type="text" id="city" name="city" required>
                 </div>
                 <div class="form-group">
                     <label>ما هي أكبر المشاكل التي تواجهها في إدارة صحتك؟ (يمكنك اختيار أكثر من إجابة)</label>
                     <div class="checkbox-group">
                         <label class="checkbox-item">
-                            <input type="checkbox" name="entry.164440756" value="إدخال البيانات يدوياً من التقارير">
+                            <input type="checkbox" name="problems" value="إدخال البيانات يدوياً من التقارير">
                             <span>إدخال البيانات يدوياً من التقارير</span>
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox" name="entry.164440756" value="فقدان الملفات الطبية">
+                            <input type="checkbox" name="problems" value="فقدان الملفات الطبية">
                             <span>فقدان الملفات الطبية</span>
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox" name="entry.164440756" value="نسيان مواعيد الأدوية">
+                            <input type="checkbox" name="problems" value="نسيان مواعيد الأدوية">
                             <span>نسيان مواعيد الأدوية</span>
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox" name="entry.164440756" value="العثور على الأطباء">
+                            <input type="checkbox" name="problems" value="العثور على الأطباء">
                             <span>العثور على الأطباء</span>
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox" name="entry.164440756" value="تنظيم المواعيد">
+                            <input type="checkbox" name="problems" value="تنظيم المواعيد">
                             <span>تنظيم المواعيد</span>
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox" name="entry.164440756" value="مشاركة المعلومات مع الأطباء">
+                            <input type="checkbox" name="problems" value="مشاركة المعلومات مع الأطباء">
                             <span>مشاركة المعلومات مع الأطباء</span>
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox" name="entry.164440756" value="متابعة الحالة الصحية">
+                            <input type="checkbox" name="problems" value="متابعة الحالة الصحية">
                             <span>متابعة الحالة الصحية</span>
                         </label>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="usage-frequency">كم مرة تزور الطبيب شهرياً؟</label>
-                    <select id="usage-frequency" name="entry.1279826396">
+                    <select id="usage-frequency" name="visitFrequency">
                         <option value="">اختر التكرار</option>
                         <option value="نادراً (مرة أو أقل)">نادراً (مرة أو أقل)</option>
                         <option value="أحياناً (2-3 مرات)">أحياناً (2-3 مرات)</option>
@@ -559,7 +571,7 @@
                 </div>
                 <div class="form-group">
                     <label for="payment-willingness">كم ستكون مستعداً لدفع شهرياً مقابل هذا التطبيق؟</label>
-                    <select id="payment-willingness" name="entry.1459981290">
+                    <select id="payment-willingness" name="priceReadiness">
                         <option value="">اختر السعر</option>
                         <option value="مجاني فقط">مجاني فقط</option>
                         <option value="1-20 جنيه">1-20 جنيه</option>
@@ -570,14 +582,21 @@
                 </div>
                 <div class="form-group">
                     <label for="suggestions">اقتراحات أو ميزات إضافية تود رؤيتها في التطبيق</label>
-                    <textarea id="suggestions" name="entry.38304842" rows="3"></textarea>
+                    <textarea id="suggestions" name="suggestions" rows="3"></textarea>
                 </div>
                
                 <button type="submit" class="submit-btn">إرسال الاستبيان</button>
-                <div class="success-message" id="successMessage" style="display:none;">
+                
+                <div class="success-message" id="successMessage">
                     <span class="success-icon">🎉</span>
                     <h3>شكراً لك على المشاركة!</h3>
                     <p>تم إرسال استجابتك بنجاح. سنتواصل معك قريباً عندما يصبح التطبيق جاهزاً للاستخدام!</p>
+                </div>
+
+                <div class="error-message" id="errorMessage">
+                    <span class="success-icon">❌</span>
+                    <h3>حدث خطأ في الإرسال</h3>
+                    <p id="errorText">تعذر إرسال البيانات. يرجى المحاولة مرة أخرى.</p>
                 </div>
             </form>
         </div>
@@ -590,34 +609,99 @@
         </div>
     </footer>
 
-    <!-- Invisible iframe to avoid page reload on form submit -->
-    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-
     <script>
-        function validateForm() {
-            const form = document.getElementById('surveyForm');
-            const email = form.querySelector('#email').value.trim();
-            const phone = form.querySelector('#phone').value.trim();
-            const age = form.querySelector('#age').value;
-            const city = form.querySelector('#city').value.trim();
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.querySelector(".survey-form");
+            const submitButton = form.querySelector(".submit-btn");
+            const successMessage = document.getElementById("successMessage");
+            const errorMessage = document.getElementById("errorMessage");
+            const errorText = document.getElementById("errorText");
+            
+            form.addEventListener("submit", async function(event) {
+                event.preventDefault();
+                
+                // Validate required fields
+                const email = document.getElementById("email").value.trim();
+                const phone = document.getElementById("phone").value.trim();
+                const age = document.getElementById("age").value;
+                const city = document.getElementById("city").value.trim();
 
-            if (!email || !phone || !age || !city) {
-                alert('يرجى ملء جميع الحقول المطلوبة');
-                return false; // منع الإرسال
-            }
+                if (!email || !phone || !age || !city) {
+                    alert('يرجى ملء جميع الحقول المطلوبة');
+                    return;
+                }
 
-            const successMsg = document.getElementById('successMessage');
-            successMsg.style.display = 'block';
+                // Show loading state
+                submitButton.disabled = true;
+                submitButton.textContent = "جاري الإرسال...";
+                form.classList.add("loading");
 
-            setTimeout(() => {
-                form.reset();
-                form.querySelector('#notify-launch').checked = true;
-                successMsg.style.display = 'none';
-            }, 10000);
+                // Hide any previous messages
+                successMessage.style.display = "none";
+                errorMessage.style.display = "none";
 
-            return true; // السماح بالإرسال
-        }
+                // Collect form data
+                const formData = {
+                    email: email,
+                    whatsapp: phone,
+                    ageGroup: age,
+                    city: city,
+                    problems: Array.from(document.querySelectorAll('input[name="problems"]:checked')).map(el => el.value),
+                    visitFrequency: document.getElementById("usage-frequency").value,
+                    priceReadiness: document.getElementById("payment-willingness").value,
+                    suggestions: document.getElementById("suggestions").value
+                };
+
+                try {
+                    const response = await fetch("http://localhost:8086/api/leads", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    if (response.ok) {
+                        // Success
+                        successMessage.style.display = "block";
+                        form.reset();
+                        
+                        // Auto hide success message after 10 seconds
+                        setTimeout(() => {
+                            successMessage.style.display = "none";
+                        }, 10000);
+                    } else {
+                        // API error
+                        const error = await response.json().catch(() => ({ message: "حدث خطأ غير متوقع" }));
+                        throw new Error(error.message || "خطأ في الخادم");
+                    }
+                } catch (error) {
+                    console.error("Fetch Error:", error);
+                    
+                    // Show error message
+                    let errorMessage = "تعذر الاتصال بالخادم. تأكد أن الـ API شغال على بورت 8086";
+                    
+                    if (error.message.includes("Failed to fetch") || error.message.includes("NetworkError")) {
+                        errorMessage = "⚠️ تعذر الاتصال بالخادم. تأكد من تشغيل API";
+                    } else if (error.message) {
+                        errorMessage = "❌ خطأ في إرسال البيانات: " + error.message;
+                    }
+                    
+                    errorText.textContent = errorMessage;
+                    document.getElementById("errorMessage").style.display = "block";
+                    
+                    // Auto hide error message after 8 seconds
+                    setTimeout(() => {
+                        document.getElementById("errorMessage").style.display = "none";
+                    }, 8000);
+                } finally {
+                    // Reset button state
+                    submitButton.disabled = false;
+                    submitButton.textContent = "إرسال الاستبيان";
+                    form.classList.remove("loading");
+                }
+            });
+        });
     </script>
 </body>
 </html>
-
